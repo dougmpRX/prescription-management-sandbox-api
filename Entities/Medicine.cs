@@ -1,12 +1,12 @@
-﻿namespace prescription_management_sandbox_api.Entities
+﻿using prescription_management_sandbox_api.Enums;
+
+namespace prescription_management_sandbox_api.Entities
 {
     public class Medicine
     {
         public int Id { get; set; }
 
-        public string Class { get; set; } = String.Empty;
-
-        public string Type { get; set; } = String.Empty;
+        public MedicineCategoryEnum Category { get; set; } = MedicineCategoryEnum.WITHOUT_RETENTION;
 
         public string Name { get; set; } = String.Empty;
 

@@ -1,16 +1,18 @@
-﻿namespace prescription_management_sandbox_api.Entities
+﻿using prescription_management_sandbox_api.Enums;
+
+namespace prescription_management_sandbox_api.Entities
 {
     public class Prescription
     {
         public int Id { get; set; }
 
-        public string Type { get; set; } = String.Empty;
-
-        public Patient Patient { get; set; } = new Patient();
-
-        public IEnumerable<Medicine> Medicines { get; set; } = Enumerable.Empty<Medicine>();
+        public PrescriptionTypeEnum Type { get; set; } = PrescriptionTypeEnum.SIMPLE;
 
         public DateTime Date { get; set; }
+
+        public ICollection<Medicine> Medicines { get; set; } = new List<Medicine>();
+
+        public Patient Patient { get; set; } = new Patient();
 
         public Professional Professional { get; set; } = new Professional();
 

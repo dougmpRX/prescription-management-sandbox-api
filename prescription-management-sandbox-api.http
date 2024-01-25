@@ -1,6 +1,0 @@
-@prescription_management_sandbox_api_HostAddress = http://localhost:5139
-
-GET {{prescription_management_sandbox_api_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
