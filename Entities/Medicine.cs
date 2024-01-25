@@ -13,5 +13,8 @@ namespace prescription_management_sandbox_api.Entities
         public double Dosage { get; set; }
 
         public string UsageDescription { get; set; } = String.Empty;
+
+        public IEnumerable<PrescriptionMedicine> PrescriptionMedicines { get; set; } = 
+            Enumerable.Empty<PrescriptionMedicine>();
     }
 }

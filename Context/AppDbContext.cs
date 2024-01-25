@@ -23,6 +23,10 @@ namespace prescription_management_sandbox_api.Context
                                  .HasConversion<string>()
                                  .HasMaxLength(11)
                                  .IsRequired();
+            mb.Entity<Prescription>().Property(p => p.Type)
+                                 .HasConversion<string>()
+                                 .HasMaxLength(11)
+                                 .IsRequired();
             
             mb.Entity<Medicine>().HasKey(m => m.Id);
             mb.Entity<Medicine>().Property(m => m.Category)
@@ -92,15 +96,25 @@ namespace prescription_management_sandbox_api.Context
                                     .HasMaxLength(15)
                                     .IsRequired();
 
+            mb.Entity<PrescriptionMedicine>().HasKey(pm => new { pm.PrescriptionId, pm.MedicineId });
+
             //Relationships
-            mb.Entity<Prescription>().HasOne<Patient>(p => p.Patient)
+            mb.Entity<Prescription>().HasOne(p => p.Patient)
                                      .WithMany(p => p.Prescriptions);
-            mb.Entity<Prescription>().HasOne<Professional>(p => p.Professional)
+            mb.Entity<Prescription>().HasOne(p => p.Professional)
                                      .WithMany(p => p.Prescriptions);
-            mb.Entity<Prescription>().HasOne<Institution>(p => p.Institution)
-                                     .WithOne();
-            mb.Entity<Prescription>().HasMany<Medicine>(p => p.Medicines)
-                                     .WithOne();
+            mb.Entity<Prescription>().HasOne(p => p.Institution)
+                                     .WithOne()
+                                     .HasForeignKey<Prescription>("InstitutionId")
+                                     .IsRequired();
+            
+            mb.Entity<PrescriptionMedicine>().HasOne(pm => pm.Prescription)
+                                             .WithMany(p => p.PrescriptionMedicines)
+                                             .HasForeignKey(pm => pm.PrescriptionId)
+                                             .IsRequired();
+            mb.Entity<PrescriptionMedicine>().HasOne(pm => pm.Medicine)
+                                             .WithMany(m => m.PrescriptionMedicines)
+                                             .HasForeignKey(pm => pm.MedicineId);
         }
     }
 }
