@@ -4,9 +4,11 @@
     {
         public int Id { get; set; }
 
-        public string? Name { get; set; }
+        public string Name { get; set; } = String.Empty;
 
-        public string? Profession { get; set; }
+        public string Profession { get; set; } = String.Empty;
+
+        public string RegistryType {  get; set; } = String.Empty;
 
         public int ResgistryNumber { get; set; }
     }
