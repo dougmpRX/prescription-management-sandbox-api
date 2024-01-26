@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using prescription_management_sandbox_api.Entities;
+using prescription_management_sandbox_api.Enums;
 
 namespace prescription_management_sandbox_api.Context
 {
@@ -38,6 +39,8 @@ namespace prescription_management_sandbox_api.Context
                                  .IsRequired();
             mb.Entity<Medicine>().Property(m => m.Dosage)
                                  .HasPrecision(4,2);
+            mb.Entity<Medicine>().Property(m => m.DosageUnit)
+                                 .HasMaxLength(2);
             mb.Entity<Medicine>().Property(m => m.UsageDescription)
                                  .HasMaxLength(255)
                                  .IsRequired();
@@ -115,6 +118,17 @@ namespace prescription_management_sandbox_api.Context
             mb.Entity<PrescriptionMedicine>().HasOne(pm => pm.Medicine)
                                              .WithMany(m => m.PrescriptionMedicines)
                                              .HasForeignKey(pm => pm.MedicineId);
+
+            //Populate tables
+            mb.Entity<Medicine>().HasData(new Medicine()
+            {
+                Id = 1,
+                Category = MedicineCategoryEnum.WITHOUT_RETENTION,
+                Name = "Dipirona",
+                Dosage = 500,
+                DosageUnit = "mg",
+                UsageDescription = "Tomar 1 comprimido a cada 6 horas em caso de dor."
+            });
         }
     }
 }
